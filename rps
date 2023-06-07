@@ -1,0 +1,61 @@
+import random
+from matplotlib.pyplot import *
+
+print("Taş Kağıt Makas Oyunu")
+seçimler = ["taş", "kağıt", "makas"]
+skor = {"oyuncu": 0, "bilgisayar": 0}
+liste2=[]
+liste=[]
+color=[]
+def fonk():
+    a=0
+    for i in range(0,10):
+        print("Oyun", i)
+        print("Seçiminizi yapın: ")
+        print("1: Taş")
+        print("2: Kağıt")
+        print("3: Makas")
+        seçim = input("1-3 arasında bir sayı seçin: ")
+        a+=1
+        liste2.append(a)
+        while seçim not in ["1", "2", "3"]:
+            seçim = input("Geçerli bir sayı seçin: ")
+
+        seçim = seçimler[int(seçim) - 1]
+        bilgisayar_seçimi = random.choice(seçimler)
+        liste.append(bilgisayar_seçimi)
+        if bilgisayar_seçimi == "taş" :
+            color.append("red")
+        elif bilgisayar_seçimi=="kağıt":
+            color.append("blue")
+        else:
+            color.append("green")
+        print("Bilgisayarın seçimi: " + bilgisayar_seçimi)
+        if seçim == bilgisayar_seçimi:
+            print("Berabere!")
+        elif (seçim == "taş" and bilgisayar_seçimi == "makas") or \
+                (seçim == "kağıt" and bilgisayar_seçimi == "taş") or \
+                (seçim == "makas" and bilgisayar_seçimi == "kağıt"):
+            print("Tebrikler, kazandınız!")
+            skor["oyuncu"] += 1
+        else:
+            print("Maalesef kaybettiniz.")
+            skor["bilgisayar"] += 1
+    print("Sonuçlar:")
+    if skor["oyuncu"] > skor["bilgisayar"]:
+        print("Tebrikler, kazandınız!")
+    elif skor["oyuncu"] == skor["bilgisayar"]:
+        print("Berabere!")
+    else:
+        print("Maalesef kaybettiniz. Tekrar deneyin.")
+    print(liste)
+    print(liste2)
+
+fonk()
+
+
+scatter(liste2,liste,c=color)
+ylabel("Taş Kağıt Makas")
+xlabel("Seçim Sayısı")
+title("TAŞ KAĞIT MAKAS")
+show()
